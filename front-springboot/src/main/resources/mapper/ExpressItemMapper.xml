@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fit.mapper.ExpressItemMapper">
+    <resultMap id="expressItemMap" type="edu.fit.pojo.ExpressItem">
+        <id property="eiId" column="ei_id"/>
+        <result property="eiNumber" column="ei_number"/>
+        <result property="createId" column="create_id"/>
+        <result property="senderName" column="sender_name"/>
+        <result property="senderPhone" column="sender_phone"/>
+        <result property="senderProvince" column="sender_province"/>
+        <result property="senderCity" column="sender_city"/>
+        <result property="senderArea" column="sender_area"/>
+        <result property="senderAddress" column="sender_address"/>
+        <result property="recipientName" column="recipient_name"/>
+        <result property="recipientPhone" column="recipient_phone"/>
+        <result property="recipientProvince" column="recipient_province"/>
+        <result property="recipientCity" column="recipient_city"/>
+        <result property="recipientArea" column="recipient_area"/>
+        <result property="recipientAddress" column="recipient_address"/>
+        <result property="eiType" column="ei_type"/>
+        <result property="eiState" column="ei_state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="courierId" column="courier_id"/>
+        <result property="eiWeight" column="ei_weight"/>
+    </resultMap>
+    <insert id="insertOrder">
+        insert into `ex_ei` (ei_number,create_id,sender_name,sender_phone,sender_province,sender_city,sender_area,sender_address,
+                             recipient_name,recipient_phone,recipient_province,recipient_city,recipient_area,recipient_address
+                             ,ei_type,ei_state,ei_weight)
+        values (#{eiNumber},#{createId},#{senderName},#{senderPhone},#{senderProvince},#{senderCity},#{senderArea},#{senderAddress}
+        ,#{recipientName},#{recipientPhone},#{recipientProvince},#{recipientCity},#{recipientArea},#{recipientAddress},#{eiType},0,#{eiWeight})
+    </insert>
+
+    <select id="selectEIMessage" resultMap="expressItemMap">
+        SELECT * FROM `ex_ei` where ei_number = #{eiNumber}
+    </select>
+
+</mapper>

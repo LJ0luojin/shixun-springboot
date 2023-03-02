@@ -1,0 +1,3 @@
+# Project exclude paths
+/background-springboot/target/
+/front-springboot/target/

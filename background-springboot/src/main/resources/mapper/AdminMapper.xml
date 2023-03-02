@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fit.mapper.AdminMapper">
+    <resultMap id="adminMap" type="edu.fit.pojo.Admin">
+        <id property="adminId" column="admin_id"/>
+        <result property="adminLoginname" column="admin_loginname"/>
+        <result property="adminPassword" column="admin_password"/>
+        <result property="courierName" column="courier_name"/>
+        <result property="courierPhone" column="courier_phone"/>
+        <result property="state" column="state"/>
+        <result property="type" column="type"/>
+    </resultMap>
+    <insert id="insertCourier">
+        insert into `ex_admin` (admin_loginname,admin_password,courier_name,courier_phone,`state`,`type`)
+        values (#{adminLoginname},#{adminPassword},#{courierName},${courierPhone},1,2)
+    </insert>
+    <update id="updateState">
+        update `ex_admin` set `state` = #{state} where admin_id = #{adminId}
+    </update>
+    <update id="updataCourier">
+        update `ex_admin` set admin_loginname = #{adminLoginname},courier_name = #{courierName},courier_phone = #{courierPhone}
+        where admin_id = #{adminId}
+    </update>
+    <delete id="delCourierById">
+        delete from `ex_admin` where admin_id = #{adminId}
+    </delete>
+
+    <select id="findAdminToLogin" resultMap="adminMap">
+        select admin_loginname,admin_password from `ex_admin` where admin_loginname = #{adminLoginname}
+        and admin_password = #{adminPassword}
+    </select>
+
+    <select id="findAdminToGetInfo" resultMap="adminMap">
+        select admin_id,admin_loginname,courier_name,courier_phone,`state`,`type` from `ex_admin`
+            <where>
+                <if test="adminLoginname !='' and adminLoginname != null">and admin_loginname = #{adminLoginname}</if>
+            </where>
+    </select>
+    <select id="selectAllCourierList" resultMap="adminMap">
+        select * from `ex_admin` where type = 2
+    </select>
+</mapper>
